@@ -15,13 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-# Use include() to add URLS from the catalog application 
+# Use include() to add URLS from the charasite application 
 from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
-admin.autodiscover()
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 ]
@@ -32,6 +31,7 @@ urlpatterns += [
 
 urlpatterns += [
     url(r'^$', RedirectView.as_view(url='/charasite/', permanent=True)),
+	url(r'^accounts/', include('django.contrib.auth.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
