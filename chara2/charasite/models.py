@@ -102,3 +102,41 @@ class Author(models.Model):
         String for representing the Model object.
         """
         return '%s, %s' % (self.last_name, self.first_name)
+		
+class Project(models.Model):
+	name = models.CharField(max_length=200, help_text="Enter the name of your team")
+	date_start = models.DateField(auto_now_add = True)
+	description = models.TextField(max_length=1000, null = True, blank = True, help_text="Enter a brief description of the project")
+	is_public = models.BooleanFiel(help_text='Do you want the project to be referenced ?')
+	
+	def __str__(self):
+		return self.name
+		
+class Teammembers(models.Model):
+
+	member = models.ForeignKey(User, on_delete=models.CASCADE)
+	team = models.ForeignKey('Project', on_delete = models.CASCADE)
+	
+	RANK_STATUS = (
+		('o', 'Owner'),
+        ('a', 'Administrator'),
+        ('m', 'Moderator'),
+        ('w', 'Writer'),
+		('t', 'Translator'),
+        ('r', 'Reader'),
+    )
+	
+	role = models.CharField(max_length=1, choices = RANK_STATUS, blank = False, default='a', help_text='Define the level of authorisation for the User')
+	date_join = models.DateField(auto_now_add = True)
+
+	def __str__(self):
+		return '%s: %s, %s' % (self.team, self.member, self.role)
+
+		
+class Repository(models.Model):
+	project = models.ForeignKey('Project', on_delete = models.CASCADE)
+	parent_repository = models.ForeignKey('self', null = True, blank = True, on_delete = models.CASCADE)
+	name = models.CharField(max_length=200, help_text="Enter the name of your new repository")
+	
+	def __str__(self):
+		return self.name
