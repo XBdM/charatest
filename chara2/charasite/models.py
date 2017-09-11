@@ -108,6 +108,8 @@ class Project(models.Model):
 	date_start = models.DateField(auto_now_add = True)
 	description = models.TextField(max_length=1000, null = True, blank = True, help_text="Enter a brief description of the project")
 	is_public = models.BooleanField(help_text='Do you want the project to be referenced ?')
+	owner = models.ForeignKey(User, on_delete=models.CASCADE)
+	genre = models.ManyToManyField(Genre, null = True, blank = True, help_text="Select a genre for this book")
 	
 	def __str__(self):
 		return self.name
