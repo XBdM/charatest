@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Author, Book, Genre, BookInstance
+from .models import Author, Book, Genre, BookInstance, Project, TeamMembers, Repository
 
 #admin.site.register(Book)
 
@@ -37,3 +37,6 @@ class BookInstanceAdmin(admin.ModelAdmin):
             'fields': ('status', 'due_back','borrower',)
         }),
     )
+admin.site.register(Project)
+admin.site.register(TeamMembers)
+admin.site.register(Repository)

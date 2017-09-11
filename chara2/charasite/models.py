@@ -107,12 +107,12 @@ class Project(models.Model):
 	name = models.CharField(max_length=200, help_text="Enter the name of your team")
 	date_start = models.DateField(auto_now_add = True)
 	description = models.TextField(max_length=1000, null = True, blank = True, help_text="Enter a brief description of the project")
-	is_public = models.BooleanFiel(help_text='Do you want the project to be referenced ?')
+	is_public = models.BooleanField(help_text='Do you want the project to be referenced ?')
 	
 	def __str__(self):
 		return self.name
 		
-class Teammembers(models.Model):
+class TeamMembers(models.Model):
 
 	member = models.ForeignKey(User, on_delete=models.CASCADE)
 	team = models.ForeignKey('Project', on_delete = models.CASCADE)
@@ -140,3 +140,13 @@ class Repository(models.Model):
 	
 	def __str__(self):
 		return self.name
+		
+class Chapter(models.Model):
+	project = models.ForeignKey('Project', on_delete = models.CASCADE)
+	repository = models.ForeignKey('Repository', on_delete = models.CASCADE)
+	number = models.IntegerField(help_text = 'Number of the chapter')
+	title = models.CharField(max_length=200, help_text="Enter the title of this chapter")
+	summary = models.TextField(max_length=1000, null = True, blank = True, help_text="Enter a brief summary for this chapter")
+	chapter = models.TextField(max_length=200000, null = True, blank = True, help_text="Your chapter")
+	date_of_creation = models.DateField(auto_now_add = True)
+	date_of_last_edit = models.DateField(auto_now = True)

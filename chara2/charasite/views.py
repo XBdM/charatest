@@ -40,7 +40,7 @@ def index(request):
 	
 class BookListView(generic.ListView):
     model = Book
-    paginate_by = 1
+    paginate_by = 10
 
 def BookDetailView(request,pk):
     try:
