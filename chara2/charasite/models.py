@@ -152,3 +152,11 @@ class Chapter(models.Model):
 	chapter = models.TextField(max_length=200000, null = True, blank = True, help_text="Your chapter")
 	date_of_creation = models.DateField(auto_now_add = True)
 	date_of_last_edit = models.DateField(auto_now = True)
+
+class Volume(models.Model):
+	project = models.ForeignKey('Project', on_delete = models.CASCADE)
+	number = models.IntegerField(help_text = 'Number of the chapter')
+	begin = models.IntegerField(help_text = 'first chap')
+	end = models.IntegerField(help_text = 'last chap')
+	title = models.CharField(max_length=200, help_text="Enter the title of this volume")
+
