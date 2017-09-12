@@ -102,7 +102,8 @@ class Author(models.Model):
         String for representing the Model object.
         """
         return '%s, %s' % (self.last_name, self.first_name)
-		
+
+
 class Project(models.Model):
 	name = models.CharField(max_length=200, help_text="Enter the name of your team")
 	date_start = models.DateField(auto_now_add = True)
@@ -110,11 +111,12 @@ class Project(models.Model):
 	is_public = models.BooleanField(help_text='Do you want the project to be referenced ?')
 	owner = models.ForeignKey(User, on_delete=models.CASCADE)
 	genre = models.ManyToManyField(Genre, null = True, blank = True, help_text="Select a genre for this book")
-	
+	is_published = models.BooleanField(blank = True)
+
 	def __str__(self):
 		return self.name
 		
-class TeamMembers(models.Model):
+class TeamMember(models.Model):
 
 	member = models.ForeignKey(User, on_delete=models.CASCADE)
 	team = models.ForeignKey('Project', on_delete = models.CASCADE)
@@ -144,14 +146,16 @@ class Repository(models.Model):
 		return self.name
 		
 class Chapter(models.Model):
-	project = models.ForeignKey('Project', on_delete = models.CASCADE)
-	repository = models.ForeignKey('Repository', on_delete = models.CASCADE)
-	number = models.IntegerField(help_text = 'Number of the chapter')
-	title = models.CharField(max_length=200, help_text="Enter the title of this chapter")
-	summary = models.TextField(max_length=1000, null = True, blank = True, help_text="Enter a brief summary for this chapter")
-	chapter = models.TextField(max_length=200000, null = True, blank = True, help_text="Your chapter")
-	date_of_creation = models.DateField(auto_now_add = True)
-	date_of_last_edit = models.DateField(auto_now = True)
+    project = models.ForeignKey('Project', on_delete = models.CASCADE)
+    repository = models.ForeignKey('Repository', on_delete = models.CASCADE)
+    number = models.IntegerField(help_text = 'Number of the chapter')
+    title = models.CharField(max_length=200, help_text="Enter the title of this chapter")
+    summary = models.TextField(max_length=1000, null = True, blank = True, help_text="Enter a brief summary for this chapter")
+    chapter = models.TextField(max_length=200000, null = True, blank = True, help_text="Your chapter")
+    date_of_creation = models.DateField(auto_now_add = True)
+    date_of_last_edit = models.DateField(auto_now = True)
+    is_published = models.BooleanField(blank=True)
+
 
 class Volume(models.Model):
 	project = models.ForeignKey('Project', on_delete = models.CASCADE)
