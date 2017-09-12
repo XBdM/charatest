@@ -40,4 +40,5 @@ class BookInstanceAdmin(admin.ModelAdmin):
 admin.site.register(Project)
 admin.site.register(TeamMember)
 admin.site.register(Repository)
+admin.site.register(Chapter)
 admin.site.register(Volume)
