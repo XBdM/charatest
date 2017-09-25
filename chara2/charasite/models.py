@@ -15,7 +15,7 @@ class Genre(models.Model):
         String for representing the Model object (in Admin site etc.)
         """
         return self.name
-		
+        
 
 class Book(models.Model):
     """
@@ -43,7 +43,7 @@ class Book(models.Model):
         Returns the url to access a particular book instance.
         """
         return reverse('book_detail', args=[str(self.id)])
-		
+        
 class BookInstance(models.Model):
     """
     Model representing a specific copy of a book (i.e. that can be borrowed from the library).
@@ -72,15 +72,15 @@ class BookInstance(models.Model):
         String for representing the Model object
         """
         return '%s (%s)' % (self.id,self.book.title)
-		
+        
     @property
     def is_overdue(self):
         if self.due_back and date.today() > self.due_back:
             return True
         return False
-		
+        
     permissions = (("can_mark_returned", "Set book as returned"),) 
-		
+        
 class Author(models.Model):
     """
     Model representing an author.
@@ -105,46 +105,49 @@ class Author(models.Model):
 
 
 class Project(models.Model):
-	name = models.CharField(max_length=200, help_text="Enter the name of your team")
-	date_start = models.DateField(auto_now_add = True)
-	description = models.TextField(max_length=1000, null = True, blank = True, help_text="Enter a brief description of the project")
-	is_public = models.BooleanField(help_text='Do you want the project to be referenced ?')
-	owner = models.ForeignKey(User, on_delete=models.CASCADE)
-	genre = models.ManyToManyField(Genre, null = True, blank = True, help_text="Select a genre for this book")
-	is_published = models.BooleanField(blank = True)
+    name = models.CharField(max_length=200, help_text="Enter the name of your team")
+    date_start = models.DateField(auto_now_add = True)
+    description = models.TextField(max_length=1000, null = True, blank = True, help_text="Enter a brief description of the project")
+    is_public = models.BooleanField(help_text='Do you want the project to be referenced ?')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    genre = models.ManyToManyField(Genre, help_text="Select a genre for this book")
+    is_published = models.BooleanField(blank = True)
 
-	def __str__(self):
-		return self.name
-		
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('project_detail', args=[str(self.id)])
+        
 class TeamMember(models.Model):
 
-	member = models.ForeignKey(User, on_delete=models.CASCADE)
-	team = models.ForeignKey('Project', on_delete = models.CASCADE)
-	
-	RANK_STATUS = (
-		('o', 'Owner'),
+    member = models.ForeignKey(User, on_delete=models.CASCADE)
+    team = models.ForeignKey('Project', on_delete = models.CASCADE)
+    
+    RANK_STATUS = (
+        ('o', 'Owner'),
         ('a', 'Administrator'),
         ('m', 'Moderator'),
         ('w', 'Writer'),
-		('t', 'Translator'),
+        ('t', 'Translator'),
         ('r', 'Reader'),
     )
-	
-	role = models.CharField(max_length=1, choices = RANK_STATUS, blank = False, default='a', help_text='Define the level of authorisation for the User')
-	date_join = models.DateField(auto_now_add = True)
+    
+    role = models.CharField(max_length=1, choices = RANK_STATUS, blank = False, default='a', help_text='Define the level of authorisation for the User')
+    date_join = models.DateField(auto_now_add = True)
 
-	def __str__(self):
-		return '%s: %s, %s' % (self.team, self.member, self.role)
+    def __str__(self):
+        return '%s: %s, %s' % (self.team, self.member, self.role)
 
-		
+        
 class Repository(models.Model):
-	project = models.ForeignKey('Project', on_delete = models.CASCADE)
-	parent_repository = models.ForeignKey('self', null = True, blank = True, on_delete = models.CASCADE)
-	name = models.CharField(max_length=200, help_text="Enter the name of your new repository")
-	
-	def __str__(self):
-		return self.name
-		
+    project = models.ForeignKey('Project', on_delete = models.CASCADE)
+    parent_repository = models.ForeignKey('self', null = True, blank = True, on_delete = models.CASCADE)
+    name = models.CharField(max_length=200, help_text="Enter the name of your new repository")
+    
+    def __str__(self):
+        return self.name
+        
 class Chapter(models.Model):
     project = models.ForeignKey('Project', on_delete = models.CASCADE)
     repository = models.ForeignKey('Repository', on_delete = models.CASCADE)
@@ -154,13 +157,13 @@ class Chapter(models.Model):
     chapter = models.TextField(max_length=200000, null = True, blank = True, help_text="Your chapter")
     date_of_creation = models.DateField(auto_now_add = True)
     date_of_last_edit = models.DateField(auto_now = True)
-    is_published = models.BooleanField(blank=True)
+    is_published = models.BooleanField(blank=True, default=False)
 
 
 class Volume(models.Model):
-	project = models.ForeignKey('Project', on_delete = models.CASCADE)
-	number = models.IntegerField(help_text = 'Number of the chapter')
-	begin = models.IntegerField(help_text = 'first chap')
-	end = models.IntegerField(help_text = 'last chap')
-	title = models.CharField(max_length=200, help_text="Enter the title of this volume")
+    project = models.ForeignKey('Project', on_delete = models.CASCADE)
+    number = models.IntegerField(help_text = 'Number of the chapter')
+    begin = models.IntegerField(help_text = 'first chap')
+    end = models.IntegerField(help_text = 'last chap')
+    title = models.CharField(max_length=200, help_text="Enter the title of this volume")
 

@@ -1,0 +1,14 @@
+{% extends "basic_generic_readingspacev2.html" %}
+
+{% block content %}
+  <h1>Name: {{ project.name }}</h1>
+
+  <p><strong>Owner:</strong> <a href="">{{ project.owner }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Summary:</strong> {{ project.description }}</p>
+  <p><strong>Date of release:</strong> {{ project.date_start }}</p>  
+  <p><strong>Genre:</strong> {% for genre in project.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
+
+  <div style="margin-left:20px;margin-top:20px">
+    <p>Chapitres</p>
+  </div>
+{% endblock %}
