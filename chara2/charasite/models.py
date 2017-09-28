@@ -158,6 +158,10 @@ class Chapter(models.Model):
     date_of_creation = models.DateField(auto_now_add = True)
     date_of_last_edit = models.DateField(auto_now = True)
     is_published = models.BooleanField(blank=True, default=False)
+	
+    class Meta:
+        
+        ordering =['number']
 
 
 class Volume(models.Model):

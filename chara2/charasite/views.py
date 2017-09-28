@@ -135,9 +135,11 @@ def ProjectDetailView(request,pk):
         raise Http404("Project does not exist")
 
     #book_id=get_object_or_404(Book, pk=pk)
+	
+    list_chap = Chapter.objects.filter(project=project_id).filter(is_published = True).order_by('number')
     
     return render(
         request,
         'charasite/project_detail.html',
-        context={'project':project_id,}
+        context={'project':project_id,'list_chapter':list_chap,}
     )

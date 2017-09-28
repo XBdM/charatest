@@ -1,4 +1,4 @@
-{% extends "basic_generic_readingspacev2.html" %}
+{% extends "base_generic_readingspace_wcom.html" %}
 
 {% block content %}
   <h1>Name: {{ project.name }}</h1>
@@ -9,6 +9,14 @@
   <p><strong>Genre:</strong> {% for genre in project.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
 
   <div style="margin-left:20px;margin-top:20px">
-    <p>Chapitres</p>
+    <h2>Chapters</h2>
+		
+		<ul>
+		{% for chapter in list_chapter %}
+			
+			<li><a href="">Chapter {{ chapter.number }}: {{ chapter.title }}</a></li>
+		
+		{% endfor %}
+		</ul>
   </div>
 {% endblock %}
