@@ -96,7 +96,7 @@
 		
 		<div class="sidebar_list_project">
 		  {% block side_list_chapter %}
-		    <h1><a href="">Novels</a></h1>
+		    <h1><a href="{% url 'projects' %}">Novels</a></h1>
 			
 			<ul>
 			{% for project in listproj %}
@@ -104,6 +104,24 @@
 			{% empty %}
 			  <li>Sorry, no novels available in your country</li>
 			{% endfor %}
+			</ul>
+			
+		  {% endblock %}
+		</div>
+		
+		<div class="sidebar_list_new_chapter">
+		  {% block side_list_new_chapter %}
+		    
+			<h1>Last Chapters</h1>
+			
+			<ul>
+			  {% for chapter in listnewchap %}
+			    <li><a href="{{ chapter.get_absolute_url }}">{{ chapter.project.name }} {{ chapter.number }}: {{ chapter.title }}</a></li>
+			  {% empty %}
+			    <li>Sorry, no new chapters available in your country</li>
+			  {% endfor %}
+			
+			
 			</ul>
 			
 		  {% endblock %}

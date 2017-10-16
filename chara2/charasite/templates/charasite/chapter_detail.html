@@ -15,11 +15,11 @@
 	</ul>
   
   
-  <div>
-    {{ chapter.content }}
-  </div>
+    <div>
+      {{ chapter.content|linebreaksbr }}
+    </div>
  
-  <ul class="chapter_scroll_bar">
+    <ul class="chapter_scroll_bar">
 	  {% if chapter.prevChapter %}
 	  <li><a href ="{{ chapter.prevChapter.get_absolute_url }}">Previous Chapter </a></li>
 	  {% endif %}
@@ -29,5 +29,7 @@
 	  {% endfor %}
 	</ul>
 
+	<p>Date of creation: {{ chapter.date_of_creation }}</p>
+	<p>Date of last edit: {{ chapter.date_of_last_edit }}</p>
   
 {% endblock %}

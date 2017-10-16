@@ -64,6 +64,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 				'charasite.context_processors.listproj_context_processor',
+				'charasite.context_processors.listnewchapter_context_processor',
             ],
         },
     },
