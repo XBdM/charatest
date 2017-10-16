@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^author/(?P<pk>\d+)/delete/$', views.AuthorDelete.as_view(), name='author_delete'),
 	url(r'^projects/$', views.ProjectListView.as_view(), name='projects'),
 	url(r'^project/(?P<pk>\d+)$', views.ProjectDetailView, name='project_detail'),
+	url(r'^chapter/(?P<pk>\d+)$', views.ChapterDetailView, name='chapter_detail'),
 ]

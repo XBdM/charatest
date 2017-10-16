@@ -153,12 +153,19 @@ class Chapter(models.Model):
     repository = models.ForeignKey('Repository', on_delete = models.CASCADE)
     number = models.IntegerField(help_text = 'Number of the chapter')
     title = models.CharField(max_length=200, help_text="Enter the title of this chapter")
+    prevChapter = models.ForeignKey('Chapter', null = True, blank = True, on_delete = models.SET_NULL, help_text="The previous chapter")
     summary = models.TextField(max_length=1000, null = True, blank = True, help_text="Enter a brief summary for this chapter")
-    chapter = models.TextField(max_length=200000, null = True, blank = True, help_text="Your chapter")
+    content = models.TextField(max_length=200000, null = True, blank = True, help_text="Your chapter")
     date_of_creation = models.DateField(auto_now_add = True)
     date_of_last_edit = models.DateField(auto_now = True)
     is_published = models.BooleanField(blank=True, default=False)
+    
+    def get_absolute_url(self):
+        return reverse('chapter_detail', args=[str(self.id)])
 	
+    def __str__(self):
+        return self.title
+    
     class Meta:
         
         ordering =['number']

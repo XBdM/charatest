@@ -14,7 +14,7 @@
 		<ul>
 		{% for chapter in list_chapter %}
 			
-			<li><a href="">Chapter {{ chapter.number }}: {{ chapter.title }}</a></li>
+			<li><a href="{{ chapter.get_absolute_url }}">Chapter {{ chapter.number }}: {{ chapter.title }}</a></li>
 		
 		{% endfor %}
 		</ul>

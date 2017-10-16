@@ -1,0 +1,33 @@
+{% extends "base_generic_readingspace_wcom.html" %}
+
+{% block content %}
+  <h1>{{ chapter.project }}</h1>
+    <h2> Chapter {{ chapter.number }}: {{ chapter.title }} </h2>
+
+    <ul class="chapter_scroll_bar">
+	  {% if chapter.prevChapter %}
+	  <li><a href ="{{ chapter.prevChapter.get_absolute_url }}">Previous Chapter </a></li>
+	  {% endif %}
+	  <li><a href = "{{chapter.project.get_absolute_url }}">Project </a></li>
+	  {% for nextChapter in chapter.chapter_set.all %}
+	  {% if nextChapter.is_published %}<li><a href = "{{ nextChapter.get_absolute_url }}">Next Chapter</a></li>{% endif %}
+	  {% endfor %}
+	</ul>
+  
+  
+  <div>
+    {{ chapter.content }}
+  </div>
+ 
+  <ul class="chapter_scroll_bar">
+	  {% if chapter.prevChapter %}
+	  <li><a href ="{{ chapter.prevChapter.get_absolute_url }}">Previous Chapter </a></li>
+	  {% endif %}
+	  <li><a href = "{{chapter.project.get_absolute_url }}">Project </a></li>
+	  {% for nextChapter in chapter.chapter_set.all %}
+	  {% if nextChapter.is_published %}<li><a href = "{{ nextChapter.get_absolute_url }}">Next Chapter</a></li>{% endif %}
+	  {% endfor %}
+	</ul>
+
+  
+{% endblock %}

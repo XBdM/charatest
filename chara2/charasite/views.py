@@ -4,7 +4,6 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import *
@@ -142,4 +141,19 @@ def ProjectDetailView(request,pk):
         request,
         'charasite/project_detail.html',
         context={'project':project_id,'list_chapter':list_chap,}
+    )
+	
+def ChapterDetailView(request,pk):
+    try:
+        chapter_id=Chapter.objects.get(pk=pk)
+    except Chapter.DoesNotExist:
+        raise Http404("Chapter does not exist")
+    
+    if (not chapter_id.is_published):
+        raise Http404("Chapter does not exist")
+    
+    return render(
+        request,
+        'charasite/chapter_detail.html',
+        context={'chapter':chapter_id,}
     )
