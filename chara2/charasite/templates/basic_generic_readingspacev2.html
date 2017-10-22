@@ -16,6 +16,7 @@
 
 <body>
 
+  <div class="entire_page">
   <header>
 	<!-- bannière ? -->
 	
@@ -50,11 +51,10 @@
 	{% endblock%}
   </nav>
   
-  <div class="container-fluid">
+  <div class="main_page">
 
-    <div class="row">
       
-      <div class="col-sm-10 ">
+      <div class="content_block">
         {% block content %}{% endblock %}
       
         {% block pagination %}
@@ -80,7 +80,7 @@
       
       </div>
 	  
-	  <div class="col-sm-2">
+	  <div class="sidebar_objects">
         {% block sidebar %}
 		<div class="sidebar_chapter">
 		  {% block side_chapter %}
@@ -128,32 +128,37 @@
 		</div>
 		
 		<div class="social_media">
+		  <h1>Social medias</h1>
 		  <p>Follow us on social media !</p>
 		</div>
 		
-		
-        <ul class="sidebar-nav">
-          <li><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="{% url 'books' %}">All books</a></li>
-          <li><a href="#">All authors</a></li>
-          
-          {% if user.is_authenticated %}
-            <li>User: {{ user.get_username }}</li>
-            <li><a href="{% url 'my_borrowed' %}">My Borrowed</a></li>
-            <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
-          {% else %}
-             <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
-          {% endif %} 
-        </ul>
+		<div class="sidebar_nav_bar">
+			<ul class="sidebar-nav">
+			  <li><a href="{% url 'index' %}">Home</a></li>
+			  <li><a href="{% url 'books' %}">All books</a></li>
+			  <li><a href="#">All authors</a></li>
+			  
+			  {% if user.is_authenticated %}
+				<li>User: {{ user.get_username }}</li>
+				<li><a href="{% url 'my_borrowed' %}">My Borrowed</a></li>
+				<li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+			  {% else %}
+				 <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+			  {% endif %} 
+			</ul>
+		</div>
       {% endblock %}
       </div>
-    </div>
-
   </div>
   
   <footer>
+    <div class="test_footer">
+	  <h1>Test</h1>
+	  <p>Juste un test</p>
+	</div>
 	<!-- Pied de page -->
   </footer>
   
+  </div>
 </body>
 </html>

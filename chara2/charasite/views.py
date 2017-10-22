@@ -157,3 +157,22 @@ def ChapterDetailView(request,pk):
         'charasite/chapter_detail.html',
         context={'chapter':chapter_id,}
     )
+	
+def ArticleDetailView(request,pk):
+    try:
+        article_id=Article.objects.get(pk=pk)
+    except Article.DoesNotExist:
+        raise Http404("Article does not exist")
+    
+    if (not article_id.is_published):
+        raise Http404("Article does not exist")
+    
+    return render(
+        request,
+        'charasite/article_detail.html',
+        context={'article':article_id,}
+    )
+	
+class ArticleListView(generic.ListView):
+    model = Article
+    paginate_by = 3

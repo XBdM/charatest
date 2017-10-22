@@ -162,13 +162,33 @@ class Chapter(models.Model):
     
     def get_absolute_url(self):
         return reverse('chapter_detail', args=[str(self.id)])
-	
+    
     def __str__(self):
         return self.title
     
     class Meta:
         
         ordering =['number']
+        
+class Article(models.Model):
+    title = models.CharField(max_length=200, help_text="Enter the title of this article")
+    writer = models.ForeignKey(User, on_delete = models.CASCADE)
+    prevArticle = models.ForeignKey('Article', null = True, blank = True, on_delete = models.SET_NULL, help_text="The previous article")
+    summary = models.TextField(max_length=1000, null = True, blank = True, help_text="Enter a brief summary for this article")
+    content = models.TextField(max_length=200000, null = True, blank = True, help_text="Your article")
+    date_of_creation = models.DateTimeField(auto_now_add = True)
+    date_of_last_edit = models.DateTimeField(auto_now = True)
+    is_published = models.BooleanField(blank=True, default=False)
+    
+    def get_absolute_url(self):
+        return reverse('article_detail', args=[str(self.id)])
+    
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        
+        ordering = ['-date_of_last_edit']
 
 
 class Volume(models.Model):

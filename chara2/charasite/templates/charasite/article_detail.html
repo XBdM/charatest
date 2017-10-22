@@ -1,0 +1,34 @@
+{% extends "base_generic_readingspace_wcom.html" %}
+
+{% block content %}
+  <h1>{{ article.title }}</h1>
+    <p>{{ article.writer }}</p>
+
+    <ul class="article_scroll_bar">
+	  {% if article.prevArticle %}
+	  <li><a href ="{{ article.prevArticle.get_absolute_url }}">Previous Article </a></li>
+	  {% endif %}
+	  {% for nextArticle in article.article_set.all %}
+	  {% if nextArticle.is_published %}<li><a href = "{{ nextArticle.get_absolute_url }}">Next Article</a></li>{% endif %}
+	  {% endfor %}
+	</ul>
+  
+  
+    <div>
+      {{ article.content|linebreaksbr }}
+    </div>
+ 
+    <ul class="article_scroll_bar">
+	  {% if article.prevArticle %}
+	  <li><a href ="{{ article.prevArticle.get_absolute_url }}">Previous Article </a></li>
+	  {% endif %}
+	  <li><a href = "{{article.project.get_absolute_url }}">Project </a></li>
+	  {% for nextArticle in article.article_set.all %}
+	  {% if nextArticle.is_published %}<li><a href = "{{ nextArticle.get_absolute_url }}">Next Article</a></li>{% endif %}
+	  {% endfor %}
+	</ul>
+
+	<p>Date of creation: {{ article.date_of_creation }}</p>
+	<p>Date of last edit: {{ article.date_of_last_edit }}</p>
+  
+{% endblock %}

@@ -1,0 +1,80 @@
+
+header ul
+{
+    list-style-type: none;
+    display: flex;
+}
+
+
+header li
+{
+    margin-right: 15px;
+}
+
+nav ul
+{
+    list-style-type: none;
+    display: flex;
+}
+
+
+nav li
+{
+    margin-right: 15px;
+}
+
+
+body
+{
+	background: url('image/galaxy.png');
+	background-attachment: fixed;
+}
+
+
+.sidebar_objects h1
+{
+	border: 3px #23F554 solid;
+	border-bottom: 0px;
+	border-radius: 10px 10px 0px 0px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	padding: 3px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #181818;
+	background-color: #23F554;
+}
+
+.sidebar_objects ul, .sidebar_objects p
+{
+	list-style-type: none;
+	border: 3px #23F554 solid;
+	margin-bottom: 10px;
+	padding: 15px;
+	padding-left: 20px;
+	background-color: #FFFFFF;
+}
+
+.entire_page
+{
+	width: 80%;
+	min-width: 500px;
+	margin: auto;
+}
+
+.main_page
+{
+	margin: auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+.content_block
+{
+	width: 75%;
+	border: 5px #23F554 solid;
+	padding: 15px;
+	border-radius: 10px 10px 0px 0px;
+	background-color: #FFFFFF;
+}
+
