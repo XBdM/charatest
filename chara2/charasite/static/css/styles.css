@@ -1,14 +1,29 @@
+header
+{
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 10px;
+}
+
 
 header ul
 {
     list-style-type: none;
-    display: flex;
+	border: 3px #23F554 solid;
+	border-radius: 0px 0px 10px 10px;
+	background-color: #23F554;
+	padding:0px;
+	margin: 0px;
+	display: flex;
+	justify-content: flex-end;
+	flex-direction: column;
 }
 
 
 header li
 {
     margin-right: 15px;
+	margin-left: 15px;
 }
 
 nav ul
@@ -43,6 +58,7 @@ body
 	padding-right: 10px;
 	color: #181818;
 	background-color: #23F554;
+	font-size: 22pt;
 }
 
 .sidebar_objects ul, .sidebar_objects p
@@ -53,6 +69,7 @@ body
 	padding: 15px;
 	padding-left: 20px;
 	background-color: #FFFFFF;
+	opacity: 0.9;
 }
 
 .entire_page
@@ -76,5 +93,34 @@ body
 	padding: 15px;
 	border-radius: 10px 10px 0px 0px;
 	background-color: #FFFFFF;
+	opacity: 0.9;
+	margin-right: 10px; 
 }
 
+nav
+{
+	border: 3px #23F554 solid;
+	border-radius: 10px 10px 10px 10px;
+	margin-bottom: 10px;
+	font-size: 16pt;
+	background-color:  #23F554;
+}
+
+nav li
+{
+	padding: 5px;
+	padding-left: 10px;
+	margin: 0;
+}
+
+nav ul
+{
+	padding: 0;
+	margin: 0;
+	display: flex;
+	justify-content: space-around;
+}
+nav a, h1 a
+{
+	color: #181818;
+}
