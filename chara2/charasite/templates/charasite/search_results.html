@@ -1,0 +1,23 @@
+{% extends "basic_generic_readingspacev2.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="col-lg-4-offset-6">
+        </br>
+        <h3>Results of researches for {{ query_string }}:</h3>
+        <h4>Results for projects:</h4>
+        <table>
+            {% if project_entries_found %}
+            {% for proj in project_entries_found %}
+            <li><a href="{% url 'project_detail' proj.id %}"><b>{{ proj.name }}</b></a> led by {{ proj.owner }}<br/>
+            </li>
+            {% endfor %}
+            {% else %}
+                <h5>No results</h5>
+            {% endif %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}

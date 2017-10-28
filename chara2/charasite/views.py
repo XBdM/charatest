@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import *
@@ -145,7 +145,7 @@ def ProjectDetailView(request,pk):
             commentaire = CommentProject(project=project_id, author=request.user, content=form.cleaned_data['content'])
             commentaire.save()
             comments = CommentProject.objects.all().filter(project=project_id)
-            return render(request, 'charasite/chapter_detail.html',
+            return render(request, 'charasite/project_detail.html',
                           context={'project':project_id, 'list_chapter':list_chap, 'form': form, 'comments': comments})
     else:
         form = CommentForm()
@@ -244,3 +244,32 @@ def ChapterCreationView(request):
         form = ChapterCreationForm()
 
     return render(request, 'charasite/chapter_creation_form.html', {'form': form, 'is_saved': False})
+
+def ChapterEditView(request, pk):
+    chap = get_object_or_404(Chapter, id=pk)
+    if request.method == 'POST':
+        form = ChapterCreationForm(request.POST, instance=chap)
+        if form.is_valid():
+            chap.body =  request.POST.get('body')
+            chap.save()
+            return render(request, 'modules/editrecipecomment.html', {'form': chap, 'is_saved': True})
+    else:
+        form = ChapterCreationForm(instance=chap)
+    return render(request, 'modules/editrecipecomment.html', {'form': form, 'is_saved': False})
+
+def search(request):
+    query_string = ''
+    found_entries = None
+    if (request.GET):
+        query_string = request.GET.get('search_box')
+        project_entries_found = Project.objects.filter(name__icontains=query_string).order_by('id')
+        ## Permettra une recherche étendue au utilisateur une fois la fonction signin établie.
+        # found_entries = User.objects.filter(first_name__icontains=query_string).order_by('id')
+        # found_entries2 = User.objects.filter(last_name__icontains=query_string).order_by('id')
+        # user_entries_found = found_entries | found_entries2
+        return render(request, 'charasite/search_results.html',
+                              { 'query_string': query_string, 'project_entries_found': project_entries_found } )
+    return render(request, 'charasite/search_results.html')
+
+def search_page(request):
+    return render(request, 'charasite/search_page.html')

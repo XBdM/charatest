@@ -20,4 +20,7 @@ urlpatterns = [
     url(r'^article/(?P<pk>\d+)$', views.ArticleDetailView, name='article_detail'),
     url(r'^projects/create/$', views.ProjectCreationView, name='project_creation'),
     url(r'^project/createchapter/$', views.ChapterCreationView, name='chapter_creation'),
+    url(r'^chapter/edit/(?P<pk>([^$]+))$', views.ChapterEditView, name='chapter_edit'),
+    url(r'^searchpage/search', views.search, name='search'),  # search results. No$ because it will continue with stuff
+    url(r'^searchpage/$', views.search_page, name='searchpage'), #search page
 ]

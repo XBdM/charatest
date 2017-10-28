@@ -2,8 +2,8 @@
 
 {% block content %}
   <h1>{{ chapter.project }}</h1>
+    <li><a href ="{% url 'chapter_edit' chapter.id %}">Edit this chapter</a></li>
     <h2> Chapter {{ chapter.number }}: {{ chapter.title }} </h2>
-
     <ul class="chapter_scroll_bar">
 	  {% if chapter.prevChapter %}
 	  <li><a href ="{{ chapter.prevChapter.get_absolute_url }}">Previous Chapter </a></li>
