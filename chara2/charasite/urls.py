@@ -1,10 +1,15 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
+from django.contrib.auth import views as auth_views
 
 from . import views
 
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^signup/', views.signup, name ='signup'),
+    url(r'^account_activation_sent/$', views.account_activation_sent, name='account_activation_sent'),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        views.activate, name='activate'),
     url(r'^books/$', views.BookListView.as_view(), name='books'),
     url(r'^book/(?P<pk>\d+)$', views.BookDetailView, name='book_detail'),
     url(r'^mybooks/$', views.LoanedBooksByUserListView.as_view(), name='my_borrowed'),

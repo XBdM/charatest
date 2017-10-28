@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'charasite.apps.CharasiteConfig',
+    'charasite.apps.CharasiteConfig',
+	
+	
 ]
 
 MIDDLEWARE = [
@@ -63,9 +65,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-				'charasite.context_processors.listproj_context_processor',
-				'charasite.context_processors.listnewchapter_context_processor',
-				'charasite.context_processors.listnewarticle_context_processor',
+                'charasite.context_processors.listproj_context_processor',
+                'charasite.context_processors.listnewchapter_context_processor',
+                'charasite.context_processors.listnewarticle_context_processor',
             ],
         },
     },
@@ -126,4 +128,8 @@ STATIC_URL = '/static/'
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'Charasite.chara@gmail.com'
+EMAIL_HOST_PASSWORD = 'yakasserole'
+EMAIL_PORT = 587
