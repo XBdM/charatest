@@ -185,9 +185,18 @@ def ProjectCreationView(request):
         if form.is_valid():
             form.save()
             return render(request, 'charasite/project_creation_form.html', {'form': form, 'is_saved': True})
-
-    # If this is a GET (or any other method) create the default form.
     else:
         form = ProjectCreationForm()
 
     return render(request, 'charasite/project_creation_form.html', {'form': form, 'is_saved': False})
+
+def ChapterCreationView(request):
+    if request.method == 'POST':
+        form = ChapterCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'charasite/chapter_creation_form.html', {'form': form, 'is_saved': True})
+    else:
+        form = ChapterCreationForm()
+
+    return render(request, 'charasite/chapter_creation_form.html', {'form': form, 'is_saved': False})

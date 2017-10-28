@@ -24,12 +24,17 @@ class ProjectCreationForm(forms.ModelForm):
             project.save()
         return project
 
-    class CommentForm(forms.Form):
-        content = forms.CharField(widget=forms.Textarea, max_length=512, help_text="Leave a comment")
-
-        def clean_content(self):
-            data = self.cleanded_data['content']
-            return data
+class ChapterCreationForm(forms.ModelForm):
+    #def __init__(self, stat, *args, **kwargs):
+        #super(ProjectForm, self).__init__(*args, **kwargs)
+    class Meta:
+        fields = ('project', 'repository', 'number', 'title', 'prevChapter', 'summary', 'content', 'is_published')
+        model = Chapter
+    def save(self, commit=True):
+        chapter = super(ChapterCreationForm, self).save(commit=False)
+        if commit:
+            chapter.save()
+        return chapter
 
 #this code is an exemple.
 class RenewBookForm(forms.Form):
