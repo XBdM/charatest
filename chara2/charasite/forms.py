@@ -3,7 +3,21 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 import datetime #for checking renewal date range.
-    
+from .models import *
+
+class ProjectForm(forms.ModelForm):
+    #def __init__(self, stat, *args, **kwargs):
+        #super(ProjectForm, self).__init__(*args, **kwargs)
+    class Meta:
+        fields = ('name', 'description', 'is_public', 'owner', 'genre', 'is_published')
+        model = Project
+    def save(self, commit=True):
+        project = super(ProjectForm, self).save(commit=False)
+        if commit:
+            project.save()
+        return project
+
+#this code is an exemple.
 class RenewBookForm(forms.Form):
     renewal_date = forms.DateField(help_text="Enter a date between now and 4 weeks (default 3).")
 
@@ -20,3 +34,4 @@ class RenewBookForm(forms.Form):
 
         # Remember to always return the cleaned data.
         return data
+#end exemple.
