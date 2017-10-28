@@ -162,7 +162,7 @@ class Chapter(models.Model):
     
     def get_absolute_url(self):
         return reverse('chapter_detail', args=[str(self.id)])
-    
+
     def __str__(self):
         return self.title
     
@@ -222,7 +222,7 @@ class CommentChapter(models.Model):
 
 
 class CommentProject(models.Model):
-    project = models.ForeignKey('Article', on_delete=models.CASCADE)
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)
     author = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     content = models.TextField(max_length=1000, null=True, blank=True, help_text="Write a comment !")
     date_of_creation = models.DateTimeField(auto_now_add=True)

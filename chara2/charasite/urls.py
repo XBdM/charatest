@@ -15,9 +15,9 @@ urlpatterns = [
     url(r'^author/(?P<pk>\d+)/delete/$', views.AuthorDelete.as_view(), name='author_delete'),
     url(r'^projects/$', views.ProjectListView.as_view(), name='projects'),
     url(r'^project/(?P<pk>\d+)$', views.ProjectDetailView, name='project_detail'),
-    url(r'^chapter/(?P<pq>\d+)$', views.ChapterDetailView, name='chapter_detail'),
+    url(r'^chapter/(?P<pk>\d+)$', views.ChapterDetailView, name='chapter_detail'),
     url(r'^articles/$', views.ArticleListView.as_view(), name='articles'),
     url(r'^article/(?P<pk>\d+)$', views.ArticleDetailView, name='article_detail'),
     url(r'^projects/create/$', views.ProjectCreationView, name='project_creation'),
-    url(r'^chapter/create/$', views.ChapterCreationView, name='chapter_creation'),
+    url(r'^project/createchapter/$', views.ChapterCreationView, name='chapter_creation'),
 ]
