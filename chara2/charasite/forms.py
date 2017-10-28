@@ -1,9 +1,23 @@
 from django import forms
+from django.forms import ModelForm
 
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 import datetime #for checking renewal date range.
 from .models import *
+
+
+class SignUpForm(UserCreationForm):
+    
+    first_name = forms.CharField(max_length=50, required=True)
+    last_name = forms.CharField(max_length=50, required=True)
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    birth_date = forms.DateField(help_text='Required. Format: YYYY-MM-DD')
+    
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'birth_date', )
 
 class CommentForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea, max_length=512, help_text="Leave a comment")
