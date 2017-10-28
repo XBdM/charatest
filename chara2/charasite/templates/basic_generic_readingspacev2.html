@@ -28,7 +28,7 @@
 	    <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
 	  {% else %}
 	    <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-		<li><a href="#">Sign in</a></li>
+		<li><a href="{% url 'signup' %}">Sign up</a></li>
 	  {% endif %}
 	  
 	</section>
@@ -46,8 +46,6 @@
 	  <li><a href="{% url 'projects' %}">Projects</a></li>
 	  <li><a href="{% url 'articles' %}">News</a></li>
       <li><a href="{% url 'searchpage' %}">Search</a></li>
-	  <li><a href="{% url 'books' %}">All books</a></li>
-	  <li><a href="">All authors</a></li>
 	  
 	</ul>
 	{% endblock%}
@@ -155,15 +153,12 @@
 		<div class="sidebar_nav_bar">
 			<ul class="sidebar-nav">
 			  <li><a href="{% url 'index' %}">Home</a></li>
-			  <li><a href="{% url 'books' %}">All books</a></li>
-			  <li><a href="#">All authors</a></li>
-			  
 			  {% if user.is_authenticated %}
 				<li>User: {{ user.get_username }}</li>
-				<li><a href="{% url 'my_borrowed' %}">My Borrowed</a></li>
 				<li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
 			  {% else %}
 				 <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+				 <li><a href="{% url 'signup' %}">Sign up</a></li>
 			  {% endif %} 
 			</ul>
 		</div>

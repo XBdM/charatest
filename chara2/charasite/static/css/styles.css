@@ -9,9 +9,9 @@ header
 header ul
 {
     list-style-type: none;
-	border: 3px #23F554 solid;
+	border: 3px #32A813 solid;
 	border-radius: 0px 0px 10px 10px;
-	background-color: #23F554;
+	background-color: #32A813;
 	padding:0px;
 	margin: 0px;
 	display: flex;
@@ -48,7 +48,7 @@ body
 
 .sidebar_objects h1
 {
-	border: 3px #23F554 solid;
+	border: 3px #32A813 solid;
 	border-bottom: 0px;
 	border-radius: 10px 10px 0px 0px;
 	margin-top: 10px;
@@ -57,14 +57,14 @@ body
 	padding-left: 10px;
 	padding-right: 10px;
 	color: #181818;
-	background-color: #23F554;
+	background-color: #32A813;
 	font-size: 22pt;
 }
 
 .sidebar_objects ul, .sidebar_objects p
 {
 	list-style-type: none;
-	border: 3px #23F554 solid;
+	border: 3px #32A813 solid;
 	margin-bottom: 10px;
 	padding: 15px;
 	padding-left: 20px;
@@ -89,7 +89,7 @@ body
 .content_block
 {
 	width: 75%;
-	border: 5px #23F554 solid;
+	border: 5px #32A813 solid;
 	padding: 15px;
 	border-radius: 10px 10px 0px 0px;
 	background-color: #FFFFFF;
@@ -99,11 +99,11 @@ body
 
 nav
 {
-	border: 3px #23F554 solid;
+	border: 3px #32A813 solid;
 	border-radius: 10px 10px 10px 10px;
 	margin-bottom: 10px;
 	font-size: 16pt;
-	background-color:  #23F554;
+	background-color:  #32A813;
 }
 
 nav li
