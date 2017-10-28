@@ -9,8 +9,9 @@ class CommentForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea, max_length=512, help_text="Leave a comment")
 
     def clean_content(self):
-        data = self.cleanded_data['content']
+        data = self.cleaned_data['content']
         return data
+
 
 class ProjectCreationForm(forms.ModelForm):
     #def __init__(self, stat, *args, **kwargs):

@@ -135,7 +135,7 @@ def ProjectDetailView(request,pk):
         raise Http404("Project does not exist")
 
     #book_id=get_object_or_404(Book, pk=pk)
-	
+    
     list_chap = Chapter.objects.filter(project=project_id).filter(is_published = True).order_by('number')
     
     return render(
@@ -143,7 +143,7 @@ def ProjectDetailView(request,pk):
         'charasite/project_detail.html',
         context={'project':project_id,'list_chapter':list_chap,}
     )
-	
+    
 def ChapterDetailView(request,pk):
     try:
         chapter_id=Chapter.objects.get(pk=pk)
@@ -153,12 +153,32 @@ def ChapterDetailView(request,pk):
     if (not chapter_id.is_published):
         raise Http404("Chapter does not exist")
     
+    comments = CommentChapter.objects.all().filter(chapter = chapter_id)
+    
+    #formulaire
+    
+    if request.method == 'POST':
+        
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            commentaire = CommentChapter(chapter = chapter_id, author = request.user, content=form.cleaned_data['content'])
+            commentaire.save()
+            comments = CommentChapter.objects.all().filter(chapter = chapter_id)
+            return render(request, 'charasite/chapter_detail.html',context={'chapter':chapter_id,'form':form,'comments':comments})
+    
+    else:
+        form = CommentForm()
+
+    return render(request, 'charasite/chapter_detail.html',context={'chapter':chapter_id,'form':form,'comments':comments})
+
+    
     return render(
         request,
         'charasite/chapter_detail.html',
-        context={'chapter':chapter_id,}
+        context={'chapter':chapter_id,'comments':comments,}
     )
-	
+    
 def ArticleDetailView(request,pk):
     try:
         article_id=Article.objects.get(pk=pk)
@@ -167,12 +187,25 @@ def ArticleDetailView(request,pk):
     
     if (not article_id.is_published):
         raise Http404("Article does not exist")
+        
+    comments = CommentArticle.objects.all().filter(article = article_id)
     
-    return render(
-        request,
-        'charasite/article_detail.html',
-        context={'article':article_id,}
-    )
+    #formulaire
+        
+    if request.method == 'POST':
+    
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            commentaire = CommentArticle(article = article_id, author = request.user, content=form.cleaned_data['content'])
+            commentaire.save()
+            comments = CommentArticle.objects.all().filter(article = article_id)
+            return render(request, 'charasite/article_detail.html',context={'article':article_id,'form':form,'comments':comments})
+    
+    else:
+        form = CommentForm()
+    
+    return render(request, 'charasite/article_detail.html',context={'article':article_id,'form':form,'comments':comments})
 
 class ArticleListView(generic.ListView):
     model = Article
