@@ -198,3 +198,35 @@ class Volume(models.Model):
     end = models.IntegerField(help_text = 'last chap')
     title = models.CharField(max_length=200, help_text="Enter the title of this volume")
 
+
+class CommentArticle(models.Model):
+    article = models.ForeignKey('Article', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    content = models.TextField(max_length=1000, null=True, blank=True, help_text="Write a comment !")
+    date_of_creation = models.DateTimeField(auto_now_add=True)
+    date_of_last_edit = models.DateTimeField(auto_now=True)
+
+    nb_upvote = models.IntegerField(default=0)
+    nb_downvote = models.IntegerField(default=0)
+
+
+class CommentChapter(models.Model):
+    chapter = models.ForeignKey('Chapter', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    content = models.TextField(max_length=1000, null=True, blank=True, help_text="Write a comment !")
+    date_of_creation = models.DateTimeField(auto_now_add=True)
+    date_of_last_edit = models.DateTimeField(auto_now=True)
+
+    nb_upvote = models.IntegerField(default=0)
+    nb_downvote = models.IntegerField(default=0)
+
+
+class CommentProject(models.Model):
+    project = models.ForeignKey('Article', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    content = models.TextField(max_length=1000, null=True, blank=True, help_text="Write a comment !")
+    date_of_creation = models.DateTimeField(auto_now_add=True)
+    date_of_last_edit = models.DateTimeField(auto_now=True)
+
+    nb_upvote = models.IntegerField(default=0)
+    nb_downvote = models.IntegerField(default=0)

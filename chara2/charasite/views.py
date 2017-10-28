@@ -173,7 +173,7 @@ def ArticleDetailView(request,pk):
         'charasite/article_detail.html',
         context={'article':article_id,}
     )
-	
+
 class ArticleListView(generic.ListView):
     model = Article
     paginate_by = 3

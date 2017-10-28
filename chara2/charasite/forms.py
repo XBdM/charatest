@@ -5,6 +5,13 @@ from django.utils.translation import ugettext_lazy as _
 import datetime #for checking renewal date range.
 from .models import *
 
+class CommentForm(forms.Form):
+    content = forms.CharField(widget=forms.Textarea, max_length=512, help_text="Leave a comment")
+
+    def clean_content(self):
+        data = self.cleanded_data['content']
+        return data
+
 class ProjectCreationForm(forms.ModelForm):
     #def __init__(self, stat, *args, **kwargs):
         #super(ProjectForm, self).__init__(*args, **kwargs)
@@ -16,6 +23,13 @@ class ProjectCreationForm(forms.ModelForm):
         if commit:
             project.save()
         return project
+
+    class CommentForm(forms.Form):
+        content = forms.CharField(widget=forms.Textarea, max_length=512, help_text="Leave a comment")
+
+        def clean_content(self):
+            data = self.cleanded_data['content']
+            return data
 
 #this code is an exemple.
 class RenewBookForm(forms.Form):
