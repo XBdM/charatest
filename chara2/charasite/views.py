@@ -188,13 +188,24 @@ def ProjectDetailView(request,pk):
         raise Http404("Project does not exist")
 
     #book_id=get_object_or_404(Book, pk=pk)
-    
+
     list_chap = Chapter.objects.filter(project=project_id).filter(is_published = True).order_by('number')
-    
+    comments = CommentProject.objects.all().filter(project=project_id)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            commentaire = CommentProject(project=project_id, author=request.user, content=form.cleaned_data['content'])
+            commentaire.save()
+            comments = CommentProject.objects.all().filter(project=project_id)
+            return render(request, 'charasite/chapter_detail.html',
+                          context={'project':project_id, 'list_chapter':list_chap, 'form': form, 'comments': comments})
+    else:
+        form = CommentForm()
     return render(
         request,
         'charasite/project_detail.html',
-        context={'project':project_id,'list_chapter':list_chap,}
+        context={'project':project_id,'list_chapter':list_chap, 'form': form, 'comments': comments}
     )
     
 def ChapterDetailView(request,pk):

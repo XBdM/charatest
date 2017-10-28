@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^articles/$', views.ArticleListView.as_view(), name='articles'),
     url(r'^article/(?P<pk>\d+)$', views.ArticleDetailView, name='article_detail'),
     url(r'^projects/create/$', views.ProjectCreationView, name='project_creation'),
-    url(r'^chapter/create/$', views.ChapterCreationView, name='chapter_creation'),
+    url(r'^project/createchapter/$', views.ChapterCreationView, name='chapter_creation'),
 ]
