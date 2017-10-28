@@ -18,4 +18,5 @@ urlpatterns = [
 	url(r'^chapter/(?P<pk>\d+)$', views.ChapterDetailView, name='chapter_detail'),
 	url(r'^articles/$', views.ArticleListView.as_view(), name='articles'),
 	url(r'^article/(?P<pk>\d+)$', views.ArticleDetailView, name='article_detail'),
+	url(r'^projects/create/$', views.ProjectCreationView, name='project_creation'),
 ]

@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from .models import *
 import datetime
 
-from .forms import RenewBookForm
+from .forms import *
 
 # Create your views here.
 
@@ -177,3 +177,17 @@ def ArticleDetailView(request,pk):
 class ArticleListView(generic.ListView):
     model = Article
     paginate_by = 3
+
+
+def ProjectCreationView(request):
+    if request.method == 'POST':
+        form = ProjectCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'charasite/project_creation_form.html', {'form': form, 'is_saved': True})
+
+    # If this is a GET (or any other method) create the default form.
+    else:
+        form = ProjectCreationForm()
+
+    return render(request, 'charasite/project_creation_form.html', {'form': form, 'is_saved': False})

@@ -5,14 +5,14 @@ from django.utils.translation import ugettext_lazy as _
 import datetime #for checking renewal date range.
 from .models import *
 
-class ProjectForm(forms.ModelForm):
+class ProjectCreationForm(forms.ModelForm):
     #def __init__(self, stat, *args, **kwargs):
         #super(ProjectForm, self).__init__(*args, **kwargs)
     class Meta:
         fields = ('name', 'description', 'is_public', 'owner', 'genre', 'is_published')
         model = Project
     def save(self, commit=True):
-        project = super(ProjectForm, self).save(commit=False)
+        project = super(ProjectCreationForm, self).save(commit=False)
         if commit:
             project.save()
         return project
