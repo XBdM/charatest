@@ -1,15 +1,10 @@
-{% extends "basic_generic_readingspacev2.html" %}
+{% extends "base_generic_edit.html" %}
 
 {% block content %}
 
 
   <h1>Name: {{ repository.name }}</h1>
 
-  <p>
-  {% for repo in repo_ancestry_rev %}
-    <a href="{{ repo.get_absolute_url }}">{{ repo.name }}</a> {% if not foorloop.last %}  &gt  {% endif %}
-  {% endfor %}
-  </p>
   
   <ul>
   {% for repo in repo_repo_children %}

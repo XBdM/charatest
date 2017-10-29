@@ -215,15 +215,16 @@ def ChapterCreationView(request):
 
 def ChapterEditView(request, pk):
     chap = get_object_or_404(Chapter, id=pk)
+    
     if request.method == 'POST':
         form = ChapterCreationForm(request.POST, instance=chap)
         if form.is_valid():
             chap.body =  request.POST.get('body')
             chap.save()
-            return render(request, 'charasite/chapter_edit_form.html', {'form': chap, 'is_saved': True})
+            return render(request, 'charasite/chapter_edit_form.html', {'form': chap, 'is_saved': True, 'repository':chap.repository,})
     else:
         form = ChapterCreationForm(instance=chap)
-    return render(request, 'charasite/chapter_edit_form.html', {'form': form, 'is_saved': False})
+    return render(request, 'charasite/chapter_edit_form.html', {'form': form, 'is_saved': False, 'repository':chap.repository,})
 
 def search(request):
     query_string = ''
@@ -248,13 +249,19 @@ def ArborescenceEditView(request,pk):
     except Repository.DoesNotExist:
         raise Http404("Article does not exist")
     
-    repo_ancestry =[repository_id]
-    while repo_ancestry[-1].parent_repository:
-        repo_ancestry.append(repo_ancestry[-1].parent_repository)
+    if request.user.is_authenticated:    
     
-    repo_ancestry_rev = repo_ancestry[::-1].copy()
-	
-    repo_repo_children = Repository.objects.filter(parent_repository = repository_id).order_by('name')
-    repo_chap_children = Chapter.objects.filter(repository = repository_id).order_by('number')
+        if TeamMember.objects.filter(member=request.user).filter(team=repository_id.project).exists():
+        
+            repo_repo_children = Repository.objects.filter(parent_repository = repository_id).order_by('name')
+            repo_chap_children = Chapter.objects.filter(repository = repository_id).order_by('number')
+        
+            return render(request, 'charaedit/arborescence.html', {'repository':repository_id, 'repo_repo_children':repo_repo_children,'repo_chap_children':repo_chap_children,})
+            
+        else:
+        
+            return render(request, 'charaedit/not_authorize.html')
+            
+    else:
     
-    return render(request, 'charaedit/arborescence.html', {'repository':repository_id, 'repo_ancestry':repo_ancestry,'repo_ancestry_rev':repo_ancestry_rev, 'repo_repo_children':repo_repo_children,'repo_chap_children':repo_chap_children,})
+        return render(request, 'not_authenticated.html')

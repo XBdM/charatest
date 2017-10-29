@@ -82,6 +82,18 @@ class Repository(models.Model):
     def get_absolute_url(self):
         return reverse('edit_repository', args=[str(self.id)])
         
+    def get_ancestry_rev(self):
+        repo_ancestry =[self]
+        while repo_ancestry[-1].parent_repository:
+            repo_ancestry.append(repo_ancestry[-1].parent_repository)
+        return repo_ancestry[::-1].copy()
+    
+    def get_ancestry(self):
+        repo_ancestry =[self]
+        while repo_ancestry[-1].parent_repository:
+            repo_ancestry.append(repo_ancestry[-1].parent_repository)
+        return repo_ancestry.copy()
+        
 class Chapter(models.Model):
     project = models.ForeignKey('Project', on_delete = models.CASCADE)
     repository = models.ForeignKey('Repository', on_delete = models.CASCADE)
