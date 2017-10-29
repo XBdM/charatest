@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^chapter/edit/(?P<pk>([^$]+))$', views.ChapterEditView, name='chapter_edit'),
     url(r'^searchpage/search', views.search, name='search'),  # search results. No$ because it will continue with stuff
     url(r'^searchpage/$', views.search_page, name='searchpage'), #search page
+    url(r'^editpage/(?P<pk>\d+)$', views.ArborescenceEditView, name='edit_repository'),
 ]

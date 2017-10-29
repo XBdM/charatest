@@ -79,6 +79,9 @@ class Repository(models.Model):
     def __str__(self):
         return self.name
         
+    def get_absolute_url(self):
+        return reverse('edit_repository', args=[str(self.id)])
+        
 class Chapter(models.Model):
     project = models.ForeignKey('Project', on_delete = models.CASCADE)
     repository = models.ForeignKey('Repository', on_delete = models.CASCADE)
@@ -93,6 +96,9 @@ class Chapter(models.Model):
     
     def get_absolute_url(self):
         return reverse('chapter_detail', args=[str(self.id)])
+        
+    def get_edit_url(self):
+        return reverse('chapter_edit', args=[str(self.id)])
 
     def __str__(self):
         return self.title
