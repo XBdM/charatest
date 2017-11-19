@@ -1,11 +1,110 @@
-{% extends "basic_generic_readingspacev2.html" %}
+{% load perso %}
 
-{% block ancesters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  {% block title %}<title>Edit, Create, Publish !</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles_editpage.css' %}">
+</head>
 
-  <p class="ancesters">
-  {% for repo in repository.get_ancestry_rev %}
-    <a href="{{ repo.get_absolute_url }}">{{ repo.name }}</a> {% if not foorloop.last %}  &gt  {% endif %}
-  {% endfor %}
-  </p>
+<body>
 
-{% endblock %}
+  <div class="entire_page">
+  <header>
+	<!-- bannière ? -->
+	
+	<section class = "userid">
+	  
+	  <ul>
+	  {% if user.is_authenticated %}
+        <li>User: {{ user.get_username }}</li>
+	    <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+	  {% else %}
+	    <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+		<li><a href="{% url 'signup' %}">Sign up</a></li>
+	  {% endif %}
+	  
+	</section>
+	
+  </header>
+  
+  <nav>
+    
+	<!-- La barre de navigation
+         Peut être faut-il l'inclure dans une section ?	-->
+	
+	{% block navigation%}
+    <ul>
+	  <li><a href="{% url 'index' %}">Chararead</a></li>
+	  <li><a href="">My Projects</a></li>
+	  <li><a href="">Create a Project</a></li>
+      <li><a href="">My invitations</a></li>
+	  
+	</ul>
+	{% endblock%}
+  </nav>
+  
+  <div class="main_page">
+
+      <div class="tree_repository">
+	    {% block tree_repository %}
+		<h1>My Projects</h1>
+		<ul>
+          {% for proj in listcurrentproject %}
+            {{proj.get_racine_repository|repository_display}}
+          {% endfor %}
+        </ul>
+		{% endblock %}
+	  </div>
+      
+	  
+	  
+	  <div class="content_block">
+	    {% block ancesters %}{% endblock %}
+        {% block content %}{% endblock %}
+      
+        {% block pagination %}
+        {% if is_paginated %}
+        <div class="pagination">
+          <span class="page-links">
+              {% if page_obj.has_previous %}
+                  <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+              {% endif %}
+              <span class="page-current">
+                  Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+              </span>
+              {% if page_obj.has_next %}
+                  <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+              {% endif %}
+          </span>
+        </div>
+        {% endif %}
+        {% endblock %}
+      
+      </div>
+	  
+	  <div class="info_obj">
+        {% block info_obj %}
+		
+        {% endblock %}
+      </div>
+  </div>
+  
+  <footer>
+    <div class="test_footer">
+	  <h1>Test</h1>
+	  <p>Juste un test</p>
+	</div>
+	<!-- Pied de page -->
+  </footer>
+  
+  </div>
+</body>
+</html>

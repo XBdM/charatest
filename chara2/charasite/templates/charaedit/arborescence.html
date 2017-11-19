@@ -1,4 +1,4 @@
-{% extends "base_generic_edit.html" %}
+{% extends "base_generic_edit_inproj.html" %}
 
 {% block content %}
 
@@ -14,5 +14,6 @@
     <li><a href="{{ chapter.get_edit_url }}">Chapter {{ chapter.number }}: {{ chapter.title }}</a></li>
   {% endfor %}
   </ul>
+  
   
 {% endblock %}

@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'charasite.apps.CharasiteConfig',
-	
-	
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -68,6 +68,7 @@ TEMPLATES = [
                 'charasite.context_processors.listproj_context_processor',
                 'charasite.context_processors.listnewchapter_context_processor',
                 'charasite.context_processors.listnewarticle_context_processor',
+                'charasite.context_processors.listcurrentproject_context_processor',
             ],
         },
     },

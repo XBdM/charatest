@@ -1,0 +1,124 @@
+body
+{
+	padding: 0px;
+	margin : 0px;
+	background-color: #DDDDDD;
+}
+
+header
+{
+	margin-top: 0px;
+	background-color: #000000;
+	padding: 0px;
+}
+
+
+header ul
+{
+    list-style-type: none;
+	padding:0px;
+	margin: 0px;
+	display: flex;
+	justify-content: flex-end;
+	color: #FFFFFF;
+}
+
+
+header li
+{
+    margin-right: 15px;
+	margin-left: 15px;
+}
+
+header a
+{
+	color: #FFFFFF;
+}
+
+nav ul
+{
+    list-style-type: none;
+    display: flex;
+}
+
+
+nav li
+{
+    margin-right: 15px;
+}
+
+
+.tree_repository
+{
+	border: 5px #000000 solid;
+	border-radius: 0px 10px 10px 0px;
+	border-left: 0px;
+	background-color: #FFFFFF;
+	margin-right: 10px;
+	padding-right: 5px;
+	max-width: 400px;
+	min-width: 200px;
+	padding-left: 10px;
+	overflow: auto;
+}
+
+.tree_repository ul
+{
+	list-style-type: none;
+	padding-left: 10px;
+}
+
+.tree_repository li
+{
+	padding-top : 5px;
+}
+
+.tree_repository h1
+{
+	margin-bottom: 0px;
+	font-size: 20pt;
+}
+
+.main_page
+{
+	margin: auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+.content_block
+{
+	width: 75%;
+	border: 5px #000000 solid;
+	padding: 15px;
+	border-radius: 10px 10px 10px 10px;
+	background-color: #FFFFFF;
+	opacity: 0.9;
+	margin-right: 10px;
+	overflow: auto;
+}
+
+nav
+{
+	margin-bottom: 10px;
+	font-size: 16pt;
+	background-color:  #999999;
+	padding-top: 10px;
+}
+
+nav li
+{
+	padding: 10px;
+	padding-left: 30px;
+	margin: 0;
+}
+
+nav ul
+{
+	padding: 0;
+	margin: 0;
+}
+nav a, h1 a
+{
+	color: #000000;
+}

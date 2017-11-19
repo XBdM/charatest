@@ -50,6 +50,9 @@ class Project(models.Model):
     def get_absolute_url(self):
         return reverse('project_detail', args=[str(self.id)])
         
+    def get_racine_repository(self):
+        return Repository.objects.filter(project=self)[0].get_ancestry_rev()[0]
+        
 class TeamMember(models.Model):
 
     member = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -69,6 +72,8 @@ class TeamMember(models.Model):
 
     def __str__(self):
         return '%s: %s, %s' % (self.team, self.member, self.role)
+
+
 
         
 class Repository(models.Model):
@@ -93,6 +98,8 @@ class Repository(models.Model):
         while repo_ancestry[-1].parent_repository:
             repo_ancestry.append(repo_ancestry[-1].parent_repository)
         return repo_ancestry.copy()
+        
+        
         
 class Chapter(models.Model):
     project = models.ForeignKey('Project', on_delete = models.CASCADE)

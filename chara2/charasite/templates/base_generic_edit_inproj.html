@@ -1,0 +1,15 @@
+{% extends "base_generic_edit.html" %}
+
+{% load perso %}
+
+
+{% block ancesters %}
+
+  <p class="ancesters">
+  {% for repo in repository.get_ancestry_rev %}
+    <a href="{{ repo.get_absolute_url }}">{{ repo.name }}</a> {% if not foorloop.last %}  &gt  {% endif %}
+  {% endfor %}
+  </p>
+
+{% endblock %}
+
