@@ -99,6 +99,32 @@ class Repository(models.Model):
             repo_ancestry.append(repo_ancestry[-1].parent_repository)
         return repo_ancestry.copy()
         
+class Personal_repository(models.Model):
+    owner = models.ForeignKey(User, on_delete = models.CASCADE)
+    parent_repository = models.ForeignKey('self', null = True, blank = True, on_delete = models.CASCADE)
+    name = models.CharField(max_length=200, help_text="Enter the name of your new repository")
+    projects = models.ManyToManyField('Project', blank = True)
+    repositories = models.ManyToManyField('Repository', blank = True)
+    chapters = models.ManyToManyField('Chapter', blank = True)
+    
+    def __str__(self):
+        return self.name
+        
+    def get_absolute_url(self):
+        return reverse('edit_personal_repository', args=[str(self.id)])
+        
+    def get_ancestry_rev(self):
+        repo_ancestry =[self]
+        while repo_ancestry[-1].parent_repository:
+            repo_ancestry.append(repo_ancestry[-1].parent_repository)
+        return repo_ancestry[::-1].copy()
+    
+    def get_ancestry(self):
+        repo_ancestry =[self]
+        while repo_ancestry[-1].parent_repository:
+            repo_ancestry.append(repo_ancestry[-1].parent_repository)
+        return repo_ancestry.copy()
+        
         
         
 class Chapter(models.Model):

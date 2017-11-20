@@ -62,6 +62,12 @@
           {% endfor %}
         </ul>
 		{% endblock %}
+		<h1>My Repositories</h1>
+		<ul>
+		  {% for repo in listpersonalrepositories %}
+		    {{ repo|perso_repository_display }}
+		  {% endfor %}
+		</ul>
 	  </div>
       
 	  

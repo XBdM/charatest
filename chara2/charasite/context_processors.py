@@ -25,3 +25,12 @@ def listcurrentproject_context_processor(request):
     return {
         'listcurrentproject': [],
     }
+
+def listpersonalrepositories_context_processor(request):
+	if request.user.is_authenticated:
+		return{
+			'listpersonalrepositories': Personal_repository.objects.filter(owner=request.user),
+		}
+	return {
+		'listpersonalrepositories': [],
+	}

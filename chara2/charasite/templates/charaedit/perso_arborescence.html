@@ -1,0 +1,25 @@
+{% extends "base_generic_edit_inproj.html" %}
+
+{% block content %}
+
+
+  <h1>Name: {{ repository.name }}</h1>
+
+  
+  <ul>
+  {% for repo in repo_prepo_children %}
+    <li><a href="{{ repo.get_absolute_url }}">{{ repo.name }}</a></li>
+  {% endfor %}
+  {% for repo in repo_repo_children %}
+    <li><a href="{{ repo.get_absolute_url }}">{{ repo.name }}</a></li>
+  {% endfor %}
+  {% for project in repo_proj_children %}
+    <li><a href="{{ project.get_absolute_url }}">Project: {{ project.name }}</a></li>
+  {% endfor %}
+  {% for chapter in repo_chap_children %}
+    <li><a href="{{ chapter.get_edit_url }}">Chapter {{ chapter.number }}: {{ chapter.title }}</a></li>
+  {% endfor %}
+  </ul>
+  
+  
+{% endblock %}

@@ -24,3 +24,15 @@ def get_list_children(repository):
 @register.filter(is_safe=True)
 def repository_display(repository):
     return mark_safe(repo_exploration(get_list_children(repository)))
+
+	
+def perso_get_list_children(repository):
+    l = (repository,[])
+    list_children = Personal_repository.objects.filter(parent_repository=repository)
+    for child in list_children:
+        l[1].append(perso_get_list_children(child))
+    return l
+
+@register.filter(is_safe=True)
+def perso_repository_display(repository):
+    return mark_safe(repo_exploration(perso_get_list_children(repository)))

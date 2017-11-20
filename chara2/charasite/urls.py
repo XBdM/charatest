@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^searchpage/search', views.search, name='search'),  # search results. No$ because it will continue with stuff
     url(r'^searchpage/$', views.search_page, name='searchpage'), #search page
     url(r'^editpage/(?P<pk>\d+)$', views.ArborescenceEditView, name='edit_repository'),
+    url(r'^editrepo/(?P<pk>\d+)$', views.PersonalArborescenceEditView, name='edit_personal_repository'),
 ]

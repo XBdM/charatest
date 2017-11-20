@@ -265,3 +265,28 @@ def ArborescenceEditView(request,pk):
     else:
     
         return render(request, 'not_authenticated.html')
+
+def PersonalArborescenceEditView(request,pk):
+    try:
+        repository_id=Personal_repository.objects.get(pk=pk)
+    except Personal_repository.DoesNotExist:
+        raise Http404("Repository does not exist")
+    
+    if request.user.is_authenticated:    
+    
+        if repository_id.owner == request.user:
+        
+            repo_prepo_children = Personal_repository.objects.filter(parent_repository = repository_id).order_by('name')
+            repo_repo_children = repository_id.repositories.order_by('name')
+            repo_proj_children = repository_id.projects.order_by('name')
+            repo_chap_children = repository_id.chapters.order_by('number')
+        
+            return render(request, 'charaedit/perso_arborescence.html', {'repository':repository_id, 'repo_repo_children':repo_repo_children,'repo_prepo_children':repo_prepo_children,'repo_proj_children':repo_proj_children,'repo_chap_children':repo_chap_children,})
+            
+        else:
+        
+            return render(request, 'charaedit/not_authorize.html')
+            
+    else:
+    
+        return render(request, 'not_authenticated.html')

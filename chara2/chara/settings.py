@@ -69,6 +69,7 @@ TEMPLATES = [
                 'charasite.context_processors.listnewchapter_context_processor',
                 'charasite.context_processors.listnewarticle_context_processor',
                 'charasite.context_processors.listcurrentproject_context_processor',
+                'charasite.context_processors.listpersonalrepositories_context_processor',
             ],
         },
     },
