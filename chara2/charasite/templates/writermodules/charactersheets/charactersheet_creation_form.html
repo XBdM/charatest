@@ -1,0 +1,18 @@
+{% extends "basic_generic_readingspacev2.html" %}
+
+{% if is_saved %}
+Your character sheet has just been created successfully!
+
+{% else %}
+{% block content %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+        {{ form }}
+        </table>
+        <input type="submit" value="Submit" />
+    </form>
+
+{% endblock %}
+{% endif %}

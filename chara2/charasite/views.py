@@ -195,7 +195,7 @@ def ProjectCreationView(request):
     if request.method == 'POST':
         form = ProjectCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            newProject = form.save()
             return render(request, 'charasite/project_creation_form.html', {'form': form, 'is_saved': True})
     else:
         form = ProjectCreationForm()
@@ -224,7 +224,7 @@ def ChapterEditView(request, pk):
             return render(request, 'charasite/chapter_edit_form.html', {'form': chap, 'is_saved': True, 'repository':chap.repository,})
     else:
         form = ChapterCreationForm(instance=chap)
-    return render(request, 'charasite/chapter_edit_form.html', {'form': form, 'is_saved': False, 'repository':chap.repository,})
+    return render(request, 'charasite/chapter_edit_form.html', {'form': form, 'is_saved': True, 'repository':chap.repository,})
 
 def search(request):
     query_string = ''

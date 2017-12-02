@@ -4,6 +4,7 @@ from datetime import date
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+import os
 import uuid # Required for unique book instances
 
 class Genre(models.Model):
@@ -52,7 +53,13 @@ class Project(models.Model):
         
     def get_racine_repository(self):
         return Repository.objects.filter(project=self)[0].get_ancestry_rev()[0]
-        
+
+
+@receiver(post_save, sender=Project)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Repository.objects.create(project=instance, name=instance.name)
+
 class TeamMember(models.Model):
 
     member = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -212,3 +219,25 @@ class CommentProject(models.Model):
 
     nb_upvote = models.IntegerField(default=0)
     nb_downvote = models.IntegerField(default=0)
+
+# BELOW will be database elements for writer modules (charactersheet, relationship graphs...)
+
+class CharacterSheet(models.Model):
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)
+    info = models.TextField(max_length=10000, null=True, blank=True, help_text="")
+    date_of_creation = models.DateTimeField(auto_now_add=True)
+    date_of_last_edit = models.DateTimeField(auto_now=True)
+
+class CharacterSheetFieldType(models.Model):
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)
+    field_label = models.TextField(max_length=100, null=True, blank=True, help_text="")
+
+class CharacterSheetField(models.Model):
+    sheet = models.ForeignKey('CharacterSheet', on_delete=models.CASCADE)
+    type = models.ForeignKey('CharacterSheetFieldType', on_delete=models.CASCADE)
+    content =  models.TextField(max_length=10000, null=True, blank=True, help_text="") #optionnal
+     #image = models.ImageField(upload_to=get_image_path, null=True, blank=True) #optionnal
+    hidden = models.BooleanField(help_text='Do you want to hide it?')
+
+def get_image_path(instance, filename):
+    return os.path.join('photos', str(instance.id), filename)
